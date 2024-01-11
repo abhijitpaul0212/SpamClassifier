@@ -2,6 +2,7 @@
 
 ![image](https://github.com/abhijitpaul0212/SpamClassifier/assets/9966441/041a0991-ea6c-439a-8e95-8f82764f08af)
 
+### Naive Bayes
 Naive Bayes is a supervised classification technique based on Bayes' Theorem with an assumption of independence among predictors. That is, a Naive Bayes classifier assumes that the presence of a particular feature in a class is unrelated to the presence of any other feature.
 
 It is a popular technique for text categorization, judging documents as belonging to one category or the other (such as spam or legitimate, sports or politics, etc.) with word frequencies as features.
@@ -14,9 +15,12 @@ It is a popular technique for text categorization, judging documents as belongin
 
 **Python Libraries used**: pandas, numpy, io, os, CountVectorizer and MultinomialNB from sklearn
 
-The Spam classifier classifies the given input as a spam/ham. A sample output is found here.
+The Spam classifier classifies the given input as a spam/ham. 
 
-Some Practical Applications:
+### Prod Link
+https://spam-ham-classifier.streamlit.app/
+
+### Some Practical Applications:
 * Direct Marketing
 * Fraud Detection
 * Text Classification
