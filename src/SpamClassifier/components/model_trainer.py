@@ -36,10 +36,10 @@ class ModelTrainer:
                 test_array[:, :-1],
                 test_array[:, -1])
             
-            models = {
-                    'GaussianNB': GaussianNB(),
-                    'MultinomialNB': MultinomialNB()
-                }
+            # models = {
+            #         'GaussianNB': GaussianNB(),
+            #         'MultinomialNB': MultinomialNB()
+            #     }
             
             models = {
                      'GaussianNB': (GaussianNB(), {
@@ -52,7 +52,7 @@ class ModelTrainer:
             # best_model = self.utils.evaluate_models(models, X_train, y_train, X_test, y_test, metric="accuracy")
             
             # model evaluation along with hyper-paramter tuning
-            best_model = self.utils.evaluate_models_with_hyperparameter(models, X_train, y_train, X_test, y_test, metric="roc_auc", verbose=3)
+            best_model = self.utils.evaluate_models_with_hyperparameter(models, X_train, y_train, X_test, y_test, metric="roc_auc", verbose=0)
             
             self.utils.save_object(
                  file_path=self.model_trainer_config.trained_model_obj_path,

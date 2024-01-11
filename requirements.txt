@@ -9,5 +9,7 @@ imblearn
 mlflow
 flask
 nltk
+imblearn
+streamlit
 pymongo[srv]
 -e .

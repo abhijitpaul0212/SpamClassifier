@@ -28,37 +28,13 @@ class PredictPipeline:
     
     
 class CustomData:
-    def __init__(self,
-                 online_order: str,
-                 book_table: str,
-                 votes: float,
-                 location: str,
-                 rest_type: str,
-                 cuisines: str,
-                 cost_for_2: float,
-                 type: str
-                 ):
-        
-        self.online_order = online_order
-        self.book_table = book_table
-        self.votes = votes
-        self.location = location
-        self.rest_type = rest_type
-        self.cuisines = cuisines
-        self.cost_for_2 = cost_for_2
-        self.type = type            
+    def __init__(self, messages: str):
+        self.messages = messages         
                 
     def get_data_as_dataframe(self):
         try:
             custom_data_input_dict = {
-                'online_order': [self.online_order], 
-                'book_table': [self.book_table], 
-                'votes': [self.votes], 
-                'location': [self.location], 
-                'rest_type': [self.rest_type], 
-                'cuisines': [self.cuisines],
-                'cost_for_2': [self.cost_for_2],
-                'type': [self.type]
+                'messages': [self.messages]
             }
             df = pd.DataFrame(custom_data_input_dict)
             logging.info('Dataframe Gathered')

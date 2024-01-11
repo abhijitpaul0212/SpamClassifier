@@ -67,7 +67,7 @@ class DataTransformation:
             
             logging.info(f'Train Dataframe Head : \n{train_df.head(2).to_string()}')
             logging.info(f'Test Dataframe Head : \n{test_df.head(2).to_string()}')
-            
+
             target_column_name = 'label'
             drop_columns = [target_column_name]
 

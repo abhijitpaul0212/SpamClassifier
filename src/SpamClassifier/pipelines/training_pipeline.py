@@ -15,7 +15,7 @@ class TrainingPipeline:
 
     def start(self):
 
-        # mlflow.set_registry_uri("https://dagshub.com/abhijitpaul0212/Restaurant-Rating-Prediction.mlflow")
+        mlflow.set_registry_uri("https://dagshub.com/abhijitpaul0212/SpamClassifier.mlflow")
         mlflow_setup.start_mlflow_run()
 
         data_ingestion = DataIngestion()
@@ -27,8 +27,8 @@ class TrainingPipeline:
         model_trainer = ModelTrainer()
         model_trainer.initiate_model_training(train_arr, test_arr)
 
-        # model_evaluation = ModelEvaluation()
-        # model_evaluation.initiate_model_evaluation(test_arr)
+        model_evaluation = ModelEvaluation()
+        model_evaluation.initiate_model_evaluation(test_arr)
 
 
 if __name__ == '__main__':

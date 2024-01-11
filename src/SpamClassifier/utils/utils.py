@@ -230,23 +230,6 @@ class Utils:
         print("BEST MODEL REPORT: ", model_report)   
         return best_model
 
-    def smote_balance(self, data):
-        """
-        The smote_balance function takes in a dataframe and returns the same dataframe with SMOTE resampling applied.
-        
-        :param data: DataFrame: Pass in the dataframe
-        :return: DataFrame: Dataframe with the same number of rows as the original dataset, but now there are an equal number of 0s and 1s in the target column
-        """
-        
-        target_column_name = 'DEFAULT_PAYMENT'
-        sm = SMOTE(sampling_strategy='minority', random_state=42)
-        
-        logging.info('Dataset shape prior resampling: {}'.format(data.shape[0]))
-        X_resampled, y_resampled = sm.fit_resample(X=data.drop(columns=target_column_name), y=data[target_column_name])
-        data = pd.concat([pd.DataFrame(X_resampled), pd.DataFrame(y_resampled)], axis=1)
-        logging.info('Dataset shape after resampling: {}'.format(data.shape[0]))
-        return data
-
     def connect_database(self, uri):
         """
         The connect_database function establishes a connection to the MongoDB database.
@@ -280,56 +263,6 @@ class Utils:
         data = list(collection.find())
         return pd.DataFrame(data)
 
-    def handle_categorical_columns(self, data, column_thresholds):
-        try:
-            for column_name, threshold in column_thresholds.items():
-                column_count = data[column_name].value_counts()
-                categories_below_threshold = column_count[column_count < threshold].index
-                data[column_name] = np.where(data[column_name].isin(categories_below_threshold), 'others', data[column_name])
-                logging.info("Updated column {} with threshold {}".format(column_name, threshold))
-            return data
-
-        except Exception as e:
-            logging.error("Error in handling categorical columns")
-            raise CustomException(e, sys)
-
-    def handle_rate_column(self, data, column_name="rate"):
-        try:
-            data[column_name] = data[column_name].apply(lambda value: np.nan if value in ["NEW", "-"] else float(str(value).split("/")[0]))
-
-            # Replacing null values with the mean
-            data[column_name] = data[column_name].fillna(data[column_name].mean())
-            return data
-
-        except Exception as e:
-            logging.error("Error in handling {} column".format(column_name))
-            raise CustomException(e, sys)
-    
-    def handle_cost_column(self, data):
-        def fix_cost(cost):
-            cost = str(cost).replace(",", "")
-            return float(cost)
-
-        data['cost_for_2'] = data['cost_for_2'].apply(fix_cost)
-        logging.info("`cost` column values are fixed")
-        return data
-
-    def download_stopwords(self):
-        nltk.download("stopwords")
-
-    def cleanse_data(self, data):
-        ps = PorterStemmer()
-        corpus = []
-        self.download_stopwords()
-        for i in range(0, len(data)):
-            review = re.sub('[^a-zA-Z]', ' ', data['messages'][i])
-            review = review.lower()
-            review = review.split()
-
-            review = [ps.stem(word) for word in review if not word in stopwords.words('english')]
-            review = " ".join(review)
-            corpus.append(review)
-        return corpus
 
 if __name__ == "__main__":
     logging.info("Demo logging activity")
