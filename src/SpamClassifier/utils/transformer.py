@@ -13,7 +13,10 @@ from sklearn.base import BaseEstimator, TransformerMixin
 
 class DataCleanser(BaseEstimator, TransformerMixin):
     def __init__(self):
-        nltk.download("stopwords")
+        try:
+            stopwords.words('english')
+        except LookupError:
+            nltk.download('stopwords')
 
     def fit(self, X, y=None):
         return self
