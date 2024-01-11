@@ -1,5 +1,6 @@
 # transformer.py
 
+import os
 import numpy as np
 import pandas as pd
 from scipy import stats
@@ -16,6 +17,17 @@ class DataCleanser(BaseEstimator, TransformerMixin):
         try:
             stopwords.words('english')
         except LookupError:
+            # Specify the path where NLTK should download resources
+            cwd = os.getcwd()
+
+            # Specify the path within the root directory
+            nltk_data_path = os.path.join(cwd, 'nltk_data')
+
+            # Create the directory if it doesn't exist
+            if not os.path.exists(nltk_data_path):
+                os.makedirs(nltk_data_path)
+                
+            nltk.data.path.append(nltk_data_path)
             nltk.download('stopwords')
 
     def fit(self, X, y=None):
